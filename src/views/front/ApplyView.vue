@@ -109,15 +109,6 @@
                 <VField id="age" name="年齡" type="number" rules="required" class="text-black" :class="{ 'is-invalid': errors['年齡'] }" placeholder="請輸入年齡" />
                 <ErrorMessage name="年齡" class="invalid-feedback" />
               </div>
-              <!-- <div class="form-floating text-white mb-6">
-                <label for="sex" class="text-white me-5">性別</label>
-                <VField id="sex" name="性別" type="radio" rules="required" class="text-black" :class="{ 'is-invalid': errors['性別'] }" placeholder="請選擇性別" as="radio" />
-                <span class="me-3" value="man">男性</span>
-                <input class="me-9" type="radio" name="性別" id="man">
-                <span class="me-3" value="male">女性</span>
-                <input class="me-9" type="radio" name="性別" id="male" checked>
-                <ErrorMessage name="性別" class="invalid-feedback" />
-              </div>上面和下面 我在找差別 -->
               <div class="form-floating text-white mb-6">
                 <label for="sex" class="text-white me-5">性別</label>
                 <VField id="sex" name="性別" type="radio" rules="required" class="text-black" :class="{ 'is-invalid': errors['性別'] }" placeholder="請選擇性別" as="radio" />
@@ -158,7 +149,7 @@
                 <ErrorMessage name="信箱" class="invalid-feedback" />
               </div>
               <div class="d-flex justify-content-center mt-5">
-                <button type="submit" class="btn btn-warning text-white">
+                <button type="submit" class="btn btn-primary border border-1 border-secondary text-white">
                   送出報名表單
                 </button>
               </div>
