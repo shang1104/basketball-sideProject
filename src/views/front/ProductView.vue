@@ -1,33 +1,64 @@
 <template>
-  <div class="container-fluid bg-black py-5">
-    <div class="container">
-      <div class="row">
-        <h3 class="text-white text-center pb-10">所有課程</h3>
-        <div class="col-12">
-          <ul class="list-unstyled" v-for="product in products" :key="product.id">
-            <li class="border border-1 border-outset rounded-3 text-white d-flex justify-content-center mb-9">
-              <div class="col-4">
-                <img class="me-4 rounded-5 p-4" style="max-width:90%" :src="product.imageUrl">
-              </div>
-              <div class="col-5 d-flex flex-column justify-content-center align-content-center align-content-lg-start">
-                <h6 class="d-flex justify-content-center d-lg-block align-items-center text-center text-lg-start">{{ product.title }}</h6>
-                <p class="description text-center text-lg-start">{{ product.description }}</p>
-              </div>
-              <div class="col-3 d-flex flex-column justify-content-around align-items-center">
-                <p class="price text-w fst-italic">NT${{product.price}}</p>
-                <button type="button" class="p-0 py-md-2 px-md-5 rounded-3 bg-black text-white border border-1 border-white join" @click="addToCart(product.id)">預約上課
-                </button>
-              </div>
-            </li>
-          </ul>
+  <main>
+    <div class="container-fluid bg-black py-5">
+      <div class="container">
+        <div class="row">
+          <h3 class="text-white text-center pb-10">所有課程</h3>
+          <table class="table">
+            <thead class="text-white">
+              <tr class="text-center bg-primary">
+                <th class="col-2">圖片</th>
+                <th class="col-3">上課名稱</th>
+                <th class="col-1 text-nowwrap">堂數</th>
+                <th class="col-1">價格</th>
+                <th class="col-1 text-nowrap">查看細節</th>
+                <th class="col-1 text-nowrap">加入課程</th>
+              </tr>
+            </thead>
+            <tbody class="text-white">
+              <tr class="text-center tableDark" v-for="product in products" :key="product.id">
+                <th>
+                  <div style="height: 100px; 
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    background-position: center" :style="{backgroundImage:`url(${product.imageUrl})`}"></div>
+                </th>
+                <td class="align-middle">{{ product.title }}</td>
+                <td class="align-middle">{{ product.unit }}</td>
+                <td class="align-middle">{{ product.price }}</td>
+                <td class="align-middle">
+                  <button @click="openModal(product.id)" type="button" class="btn btn-primary text-white text-nowrap me-2">查看更多</button>
+                </td>
+                <td class="align-middle">
+                  <button @click="addToCart(product.id)" type="button" class="btn btn-pink text-white text-nowrap">加入課程</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
-  </div>
+  </main>
+
 </template>
-<script>
+
+<script> //
 import { RouterLink } from "vue-router";
 const { VITE_APP_URL, VITE_APP_PATH } = import.meta.env;
+
+const productModal = {
+  data() {
+    return {
+      modal: {},
+      tempProduct: {},
+    };
+  },
+  template: '#userProductModal',
+  mounted() {
+    this.modal = new bootstrap.Modal(this.$refs.modal);
+  }
+}
+
 export default {
   data() {
     return {
@@ -35,7 +66,7 @@ export default {
     };
   },
   components: {
-    RouterLink,
+    productModal, RouterLink
   },
   methods: {
     getProducts() {
