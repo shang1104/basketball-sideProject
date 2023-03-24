@@ -14,27 +14,30 @@ const router = createRouter({
         },
         {
           path: "promble",
-          name: "promble",
           component: () => import("../views/front/PrombleView.vue"),
         },
         {
-          path: "apply",
-          name: "apply",
-          component: () => import("../views/front/ApplyView.vue"),
+          path: "cart",
+          component: () => import("../views/front/CartView.vue"),
+        },
+        {
+          path: "order",
+          component: () => import("../views/front/OrderView.vue"),
         },
         {
           path: "reserve",
-          name: "reserve",
           component: () => import("../views/front/ReserveView.vue"),
         },
         {
-          path: "product",
-          name: "product",
+          path: "products",
+          component: () => import("../views/front/ProductsView.vue"),
+        },
+        {
+          path: "product/:id",
           component: () => import("../views/front/ProductView.vue"),
         },
         {
           path: "login",
-          name: "login",
           component: () => import("../views/front/LoginView.vue"),
         },
       ],

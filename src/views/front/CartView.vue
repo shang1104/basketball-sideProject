@@ -3,7 +3,7 @@
   <!-- 填寫資訊 , 確認付款 , 訂單完成 -->
   <section>
     <div class="container-fulid bg-black py-10">
-      <ul class="row d-flex justify-content-center list-unstyled mb-0">
+      <ul class="row d-flex justify-content-center list-unstyled m-0">
         <li class="col-8 text-white d-flex justify-content-around">
           <div class="badge rounded-pill fs-7 bg-white text-primary">1.填寫資訊</div>
           <div class="badge rounded-pill fs-7 bg-secondary text-primary">2.確認付款</div>
@@ -17,7 +17,7 @@
     <div class="container-fluid bg-black py-5">
       <div class="container">
         <div class="row">
-          <h3 class="text-white text-center pb-10">已預約課程</h3>
+          <h6 class="text-white text-center pb-5">已預約課程</h6>
           <div class="col-12 col-sm-8 mx-auto">
             <table class="table align-middle">
               <thead>
@@ -28,28 +28,30 @@
                 </tr>
               </thead>
               <tbody>
-                <tr class="tableDark" v-for="item in cart" :key="item.id">
-                  <td class="text-white">
-                    {{ item.product.title }}
-                  </td>
-                  <td>
-                    <div class="input-group input-group-sm">
-                      <select name="" id="" class="form-control bg-black text-white" v-model="item.qty" @change="updateCartItem(item)" :disabled="item.id === loadingItem">
-                        <option :value="i" v-for="i in 20" :key="i +'123'">{{ i }}</option>
-                      </select>
-                    </div>
-                  </td>
-                  <td class="text-white d-flex justify-content-between">
-                    {{ item.product.price }}
-                    <button type="button" class="btn btn-outline-danger btn-sm" @click="deleteItem(item)" :disabled="item.id === loadingItem"><i class="fa-solid fa-trash"></i>
-                    </button>
-                  </td>
-                </tr>
+                <template v-if="cart.carts">
+                  <tr class="tableDark" v-for="item in cart.carts" :key="item.id">
+                    <td class="text-white">
+                      {{ item.product.title }}
+                    </td>
+                    <td>
+                      <div class="input-group input-group-sm">
+                        <select name="" id="" class="form-control bg-black text-white" v-model="item.qty" @change="updateCartItem(item)" :disabled="item.id === loadingItem">
+                          <option :value="i" v-for="i in 20" :key="i +'123'">{{ i }}</option>
+                        </select>
+                      </div>
+                    </td>
+                    <td class="text-white d-flex justify-content-between">
+                      {{ item.product.price }}
+                      <button type="button" class="btn btn-outline-danger btn-sm" @click="deleteItem(item)" :disabled="item.id === loadingItem"><i class="fa-solid fa-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </template>
               </tbody>
               <tfoot>
                 <tr class="text-white">
                   <td colspan="2" class="text-end">總計</td>
-                  <td>{{ cart.total }}</td>
+                  <td>{{ cart.final_total }}</td>
                 </tr>
               </tfoot>
             </table>
@@ -63,15 +65,15 @@
     <div class="container-fulid bg-black py-5">
       <div class="container">
         <div class="row">
-          <h6 class="text-white text-center pb-9">報名表單</h6>
+          <h6 class="text-white text-center pb-5">報名表單</h6>
           <div class="col-sm-9 col-lg-6 col-xl-5 mx-auto">
-            <VForm v-slot="{ errors }" class="form-signin position-relative text-center">
+            <VForm v-slot="{ errors }" @submit="createOrder" class="form-signin position-relative text-center">
               <div class="form-floating text-white mb-6">
                 <label for="name" class="text-white">姓名</label>
-                <VField id="name" name="姓名" type="text" rules="required" class="text-black" :class="{ 'is-invalid': errors['姓名'] }" placeholder="請輸入姓名" />
+                <VField id="name" name="姓名" type="text" rules="required" v-model="form.name" class="text-black" :class="{ 'is-invalid': errors['姓名'] }" placeholder="請輸入姓名" />
                 <ErrorMessage name="姓名" class="invalid-feedback" />
               </div>
-              <div class="form-floating text-white mb-6">
+              <!-- <div class="form-floating text-white mb-6">
                 <label for="age" class="text-white">年齡</label>
                 <VField id="age" name="年齡" type="number" rules="required" class="text-black" :class="{ 'is-invalid': errors['年齡'] }" placeholder="請輸入年齡" />
                 <ErrorMessage name="年齡" class="invalid-feedback" />
@@ -104,15 +106,20 @@
                   <option value="國小">國小</option>
                 </select>
                 <ErrorMessage name="分類" class="invalid-feedback" />
-              </div>
+              </div> -->
               <div class="form-floating text-white mb-6">
                 <label for="tel" class="text-white">請輸入電話</label>
-                <VField id="tel" name="電話" type="text" rules="required" class="text-black" :class="{ 'is-invalid': errors['電話'] }" placeholder="請輸入電話" />
+                <VField id="tel" name="電話" type="text" :rules="isPhone" v-model="form.tel" class="text-black" :class="{ 'is-invalid': errors['電話'] }" placeholder="請輸入電話" />
                 <ErrorMessage name="電話" class="invalid-feedback" />
               </div>
               <div class="form-floating text-white mb-6">
+                <label for="address" class="text-white">上課地點</label>
+                <VField id="address" name="地址" type="text" rules="required" v-model="form.address" class="text-black" :class="{ 'is-invalid': errors['地址'] }" placeholder="請輸入上課地點" />
+                <ErrorMessage name="地址" class="invalid-feedback" />
+              </div>
+              <div class="form-floating text-white mb-6">
                 <label for="email" class="text-white">請輸入信箱</label>
-                <VField id="email" name="信箱" type="text" rules="required|email" class="text-black" :class="{ 'is-invalid': errors['信箱'] }" placeholder="請輸入信箱" />
+                <VField id="email" name="信箱" type="text" rules="required|email" v-model="form.email" class="text-black" :class="{ 'is-invalid': errors['信箱'] }" placeholder="請輸入信箱" />
                 <ErrorMessage name="信箱" class="invalid-feedback" />
               </div>
               <div class="d-flex justify-content-center mt-5">
@@ -134,26 +141,63 @@ export default {
   data() {
     return {
       cart: {},
+      form: {
+        name: '',
+        eamil: '',
+        tel: '',
+        address: '',
+      },
+      orderId: ''
     }
   },
   methods: {
-    getProduct() {
+    //電話認證 
+    isPhone(value) {
+      const phoneNumber = /^(09)[0-9]{8}$/
+      return phoneNumber.test(value) ? true : '需要正確的電話號碼'
+    },
+    getCarts() { //取得購物車
       this.$http
         .get(`${VITE_APP_URL}/v2/api/${VITE_APP_PATH}/cart`)
         .then((res => {
-          this.cart = res.data.data.carts
-          console.log(res.data.data.carts);
+          this.cart = res.data.data;
+          console.log('取得購物車', res.data.data);
         }))
     },
-
+    checkout() {
+      this.$router.push("/checkout");
+    },
+    // 刪除購物車
+    deleteItem() {
+      this.$http
+        .delete(`${VITE_APP_URL}/v2/api/${VITE_APP_PATH}/cart/{id}`)
+        .then((res => {
+          console.log('刪除購物車', res);
+        }))
+    },
+    //送出報名表
+    createOrder() {
+      const order = this.from;
+      this.$http
+        .post(`${VITE_APP_URL}v2/api/${VITE_APP_PATH}/order`, { data: order })
+        .then(res => {
+          console.log('送出報名表', res);
+          this.orderId = res.data.orderId
+          this.$router.push(`/orders`)
+        })
+        // https://vue3-course-api.hexschool.io/v2/api/shangway/orders
+        .catch(error => {
+          console.log(error);
+        })
+    }
   },
   mounted() {
-    this.getProduct();
+    this.getCarts();
   },
 }
 </script>
 
-<style>
+<style scoped>
 .form-signin > .form-floating > label {
   padding: 0px;
   position: absolute;

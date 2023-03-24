@@ -27,10 +27,10 @@ export default {
         <div class="collapse navbar-collapse flex-grow-0" id="navbarText">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item text text-center mx-4 my-3 py-2">
-              <router-link to="/product" class="navbar-link text-a fs-10 py-3 px-3 text-white text-decoration-none text-nowrap">課程內容</router-link>
+              <router-link to="/products" class="navbar-link text-a fs-10 py-3 px-3 text-white text-decoration-none text-nowrap">課程內容</router-link>
             </li>
             <li class="nav-item text text-center mx-4 my-3 py-2">
-              <router-link to="/apply" class="navbar-link text-a fs-10 py-3 px-3 text-white text-decoration-none text-nowrap">報名表單</router-link>
+              <router-link to="/cart" class="navbar-link text-a fs-10 py-3 px-3 text-white text-decoration-none text-nowrap">報名表單</router-link>
             </li>
             <li class="nav-item text text-center mx-4 my-3 py-2">
               <router-link to="/reserve" class="navbar-link text-a fs-10 py-3 px-3 text-white text-decoration-none text-nowrap">預約上課</router-link>
