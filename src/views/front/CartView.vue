@@ -1,5 +1,4 @@
 <template>
-
   <!-- 填寫資訊 , 確認付款 , 訂單完成 -->
   <section>
     <div class="container-fulid bg-black py-10">
@@ -16,9 +15,9 @@
     <!-- 要把已預約的課程 顯示此頁 -->
     <div class="container-fluid bg-black py-5">
       <div class="container">
-        <div class="row">
-          <h6 class="text-white text-center pb-5">已預約課程</h6>
-          <div class="col-12 col-sm-8 mx-auto">
+        <div class="row d-flex justify-content-evenly">
+          <div class="col-lg-4 mb-4 mb-xl-0">
+            <h6 class="text-white text-center pb-5">已預約課程</h6>
             <table class="table align-middle">
               <thead>
                 <tr class="text-white">
@@ -56,17 +55,8 @@
               </tfoot>
             </table>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <main>
-    <!-- 報名表單 -->
-    <div class="container-fulid bg-black py-5">
-      <div class="container">
-        <div class="row">
-          <h6 class="text-white text-center pb-5">報名表單</h6>
-          <div class="col-sm-9 col-lg-6 col-xl-5 mx-auto">
+          <div class="col-lg-4">
+            <h6 class="text-white text-center mb-9">填寫個人資料</h6>
             <VForm v-slot="{ errors }" @submit="createOrder" class="form-signin position-relative text-center">
               <div class="form-floating text-white mb-6">
                 <label for="name" class="text-white">姓名</label>
@@ -132,7 +122,8 @@
         </div>
       </div>
     </div>
-  </main>
+  </section>
+
 </template>
 
 <script>
@@ -168,11 +159,12 @@ export default {
         }))
     },
     // 刪除購物車
-    deleteItem() {
+    deleteItem(item) {
       this.$http
-        .delete(`${VITE_APP_URL}/v2/api/${VITE_APP_PATH}/cart/${id}`)
+        .delete(`${VITE_APP_URL}/v2/api/${VITE_APP_PATH}/cart/${item.id}`)
         .then((res => {
           console.log('刪除購物車', res);
+          this.getCarts();
         }))
     },
     //送出報名表

@@ -1,5 +1,3 @@
-<script>
-</script>
 <template>
   <section>
     <div class="container-fluid banner">
@@ -253,7 +251,8 @@
     </div>
   </main>
 </template>
-
+<script>
+</script>
 <style>
 .banner {
   height: 640px;

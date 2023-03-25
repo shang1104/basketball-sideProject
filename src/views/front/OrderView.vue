@@ -1,5 +1,5 @@
 <template>
-
+  <!-- 填寫資訊 , 確認付款 , 訂單完成 -->
   <section>
     <div class="container-fulid bg-black py-10">
       <ul class="row d-flex justify-content-center list-unstyled m-0">
@@ -15,8 +15,8 @@
     <!-- 要把已預約的課程 顯示此頁 -->
     <div class="container-fluid bg-black py-5">
       <div class="container">
-        <div class="row d-flex justify-content-center">
-          <div class="col-lg-4">
+        <div class="row d-flex justify-content-evenly">
+          <div class="col-lg-4 mb-4 mb-xl-0">
             <h6 class="text-white text-center">已預約課程</h6>
             <table class="table align-middle">
               <thead>
@@ -34,12 +34,11 @@
                   <td>
                     <div class="input-group input-group-sm">
                       <select name="" id="" class="form-control bg-black text-white">
-                        <option :value="i" v-for="i in 20" :key="i +'123'">{{ item.qty }}</option>
+                        <option disabled="disabled">{{ item.qty }}</option>
                       </select>
                     </div>
                   </td>
                   <td class="text-white d-flex justify-content-between">
-                    {{  }}
                     <button type="button" class="btn btn-outline-danger btn-sm" @click="deleteItem(item)" :disabled="item.id === loadingItem"><i class="fa-solid fa-trash"></i>
                     </button>
                   </td>
@@ -90,10 +89,6 @@
       </div>
     </div>
   </section>
-  <div v-for="item in order.products" :key="item+1">
-    <!-- {{ item }} -->
-  </div>
-
 </template>
 
 <script>

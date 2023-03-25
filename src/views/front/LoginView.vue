@@ -1,6 +1,6 @@
 <template>
   <main>
-    <div class="container-fulid bg-black py-9">
+    <div class="container-fluid bg-black py-9">
       <div class="container">
         <div class="row">
           <h3 class="text-white text-center pb-9">註冊/登入</h3>
@@ -56,3 +56,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.container-fluid {
+  min-height: calc(100vh - 24vh);
+}
+</style>
