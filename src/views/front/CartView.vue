@@ -70,7 +70,7 @@
             <VForm v-slot="{ errors }" @submit="createOrder" class="form-signin position-relative text-center">
               <div class="form-floating text-white mb-6">
                 <label for="name" class="text-white">姓名</label>
-                <VField id="name" name="姓名" type="text" rules="required" v-model="form.name" class="text-black" :class="{ 'is-invalid': errors['姓名'] }" placeholder="請輸入姓名" />
+                <VField id="name" name="姓名" type="text" rules="required" v-model="form.user.name" class="text-black" :class="{ 'is-invalid': errors['姓名'] }" placeholder="請輸入姓名" />
                 <ErrorMessage name="姓名" class="invalid-feedback" />
               </div>
               <!-- <div class="form-floating text-white mb-6">
@@ -109,17 +109,17 @@
               </div> -->
               <div class="form-floating text-white mb-6">
                 <label for="tel" class="text-white">請輸入電話</label>
-                <VField id="tel" name="電話" type="text" :rules="isPhone" v-model="form.tel" class="text-black" :class="{ 'is-invalid': errors['電話'] }" placeholder="請輸入電話" />
+                <VField id="tel" name="電話" type="text" :rules="isPhone" v-model="form.user.tel" class="text-black" :class="{ 'is-invalid': errors['電話'] }" placeholder="請輸入電話" />
                 <ErrorMessage name="電話" class="invalid-feedback" />
               </div>
               <div class="form-floating text-white mb-6">
                 <label for="address" class="text-white">上課地點</label>
-                <VField id="address" name="地址" type="text" rules="required" v-model="form.address" class="text-black" :class="{ 'is-invalid': errors['地址'] }" placeholder="請輸入上課地點" />
+                <VField id="address" name="地址" type="text" rules="required" v-model="form.user.address" class="text-black" :class="{ 'is-invalid': errors['地址'] }" placeholder="請輸入上課地點" />
                 <ErrorMessage name="地址" class="invalid-feedback" />
               </div>
               <div class="form-floating text-white mb-6">
                 <label for="email" class="text-white">請輸入信箱</label>
-                <VField id="email" name="信箱" type="text" rules="required|email" v-model="form.email" class="text-black" :class="{ 'is-invalid': errors['信箱'] }" placeholder="請輸入信箱" />
+                <VField id="email" name="信箱" type="text" rules="required|email" v-model="form.user.email" class="text-black" :class="{ 'is-invalid': errors['信箱'] }" placeholder="請輸入信箱" />
                 <ErrorMessage name="信箱" class="invalid-feedback" />
               </div>
               <div class="d-flex justify-content-center mt-5">
@@ -142,12 +142,15 @@ export default {
     return {
       cart: {},
       form: {
-        name: '',
-        eamil: '',
-        tel: '',
-        address: '',
+        user: {
+          name: '',
+          eamil: '',
+          tel: '',
+          address: '',
+        },
+        message: '',
       },
-      orderId: ''
+      orderId: '',
     }
   },
   methods: {
@@ -164,28 +167,25 @@ export default {
           console.log('取得購物車', res.data.data);
         }))
     },
-    checkout() {
-      this.$router.push("/checkout");
-    },
     // 刪除購物車
     deleteItem() {
       this.$http
-        .delete(`${VITE_APP_URL}/v2/api/${VITE_APP_PATH}/cart/{id}`)
+        .delete(`${VITE_APP_URL}/v2/api/${VITE_APP_PATH}/cart/${id}`)
         .then((res => {
           console.log('刪除購物車', res);
         }))
     },
     //送出報名表
     createOrder() {
-      const order = this.from;
+      const order = this.form;
       this.$http
         .post(`${VITE_APP_URL}v2/api/${VITE_APP_PATH}/order`, { data: order })
         .then(res => {
           console.log('送出報名表', res);
           this.orderId = res.data.orderId
-          this.$router.push(`/orders`)
+          this.$router.push(`/order/${this.orderId}`)
         })
-        // https://vue3-course-api.hexschool.io/v2/api/shangway/orders
+        // https://vue3-course-api.hexschool.io/v2/api/shangway/order
         .catch(error => {
           console.log(error);
         })

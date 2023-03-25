@@ -25,6 +25,10 @@ const router = createRouter({
           component: () => import("../views/front/OrderView.vue"),
         },
         {
+          path: "order/:id",
+          component: () => import("../views/front/OrderView.vue"),
+        },
+        {
           path: "reserve",
           component: () => import("../views/front/ReserveView.vue"),
         },

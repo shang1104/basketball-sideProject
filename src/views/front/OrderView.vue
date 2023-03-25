@@ -27,30 +27,28 @@
                 </tr>
               </thead>
               <tbody>
-                <template v-if="cart.carts">
-                  <tr class="tableDark" v-for="item in cart.carts" :key="item.id">
-                    <td class="text-white">
-                      {{ item.product.title }}
-                    </td>
-                    <td>
-                      <div class="input-group input-group-sm">
-                        <select name="" id="" class="form-control bg-black text-white" v-model="item.qty" @change="updateCartItem(item)" :disabled="item.id === loadingItem">
-                          <option :value="i" v-for="i in 20" :key="i +'123'">{{ i }}</option>
-                        </select>
-                      </div>
-                    </td>
-                    <td class="text-white d-flex justify-content-between">
-                      {{ item.product.price }}
-                      <button type="button" class="btn btn-outline-danger btn-sm" @click="deleteItem(item)" :disabled="item.id === loadingItem"><i class="fa-solid fa-trash"></i>
-                      </button>
-                    </td>
-                  </tr>
-                </template>
+                <tr class="tableDark" v-for="item in order.products" :key="item+1">
+                  <td class="text-white">
+                    {{ item.product.title }}
+                  </td>
+                  <td>
+                    <div class="input-group input-group-sm">
+                      <select name="" id="" class="form-control bg-black text-white">
+                        <option :value="i" v-for="i in 20" :key="i +'123'">{{ item.qty }}</option>
+                      </select>
+                    </div>
+                  </td>
+                  <td class="text-white d-flex justify-content-between">
+                    {{  }}
+                    <button type="button" class="btn btn-outline-danger btn-sm" @click="deleteItem(item)" :disabled="item.id === loadingItem"><i class="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
               </tbody>
               <tfoot>
                 <tr class="text-white">
                   <td colspan="2" class="text-end">總計</td>
-                  <td>{{ cart.final_total }}</td>
+                  <td>{{ order.total }}</td>
                 </tr>
               </tfoot>
             </table>
@@ -61,23 +59,23 @@
               <tbody>
                 <tr class="text-white">
                   <td class="w-25 fw-bold">姓名</td>
-                  <td>2</td>
+                  <td>{{ order.user.name }}</td>
                 </tr>
                 <tr class="text-white">
                   <td class="w-25 fw-bold">電話</td>
-                  <td>2</td>
+                  <td>{{ order.user.tel }}</td>
                 </tr>
                 <tr class="text-white">
                   <td class="w-25 fw-bold">上課地點</td>
-                  <td>2</td>
+                  <td>{{ order.user.address }}</td>
                 </tr>
                 <tr class="text-white">
                   <td class="w-25 fw-bold">信箱</td>
-                  <td>2</td>
+                  <td>{{ order.user.email }}</td>
                 </tr>
                 <tr class="text-white">
                   <td class="w-25 fw-bold">訂單編號</td>
-                  <td>2</td>
+                  <td>{{ order.id }}</td>
                 </tr>
                 <tr class="border border-0 border-black">
                   <td></td>
@@ -92,6 +90,9 @@
       </div>
     </div>
   </section>
+  <div v-for="item in order.products" :key="item+1">
+    <!-- {{ item }} -->
+  </div>
 
 </template>
 
@@ -100,22 +101,28 @@ const { VITE_APP_URL, VITE_APP_PATH } = import.meta.env;
 export default {
   data() {
     return {
+      order: {
+        user: {},
+      },
+      // products: [],
       cart: {},
+      orderId: '',
     }
   },
   methods: {
-    getCarts() {
+    getOrder() {
+      this.orderId = this.$route.params.id;
       this.$http
-        .get(`${VITE_APP_URL}/v2/api/${VITE_APP_PATH}/order/{this.orderId}`)
-        .then((res => {
-          this.cart = res.data.data;
-          console.log('取得購物車', res.data.data);
-        }))
+        .get(`${VITE_APP_URL}/v2/api/${VITE_APP_PATH}/order/${this.orderId}`)
+        .then(res => {
+          const { order } = res.data;
+          this.order = order
+          console.log('order', res.data)
+        })
     },
-
   },
   mounted() {
-    this.getCarts();
+    this.getOrder();
   },
 }
 </script>
