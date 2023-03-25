@@ -1,4 +1,3 @@
-
 <template>
   <main>
     <div class="container-fluid bg-black py-5">
@@ -140,13 +139,15 @@ export default {
       return phoneNumber.test(value) ? true : '需為正確的手機號碼格式'
     },
   },
-  //區域註冊
-  // components: {
-  //   productModal,
-  // },
   mounted() {
     this.getProducts();
     this.getCarts();
   }
 }
 </script>
+
+<style scoped>
+.container-fluid {
+  min-height: calc(100vh - 24vh);
+}
+</style>
