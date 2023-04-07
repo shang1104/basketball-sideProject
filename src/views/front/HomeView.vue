@@ -253,7 +253,10 @@
 </template>
 <script>
 </script>
-<style>
+<style scoped>
+.container-fluid {
+  min-height: calc(100vh);
+}
 .banner {
   height: 640px;
   background-image: url(/src/assets/專題作品圖/bg-img.png);

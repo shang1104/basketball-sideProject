@@ -45,6 +45,7 @@
 <script> //
 import { RouterLink } from "vue-router";
 import TestView from '../../components/TestView.vue';
+import Swal from 'sweetalert2'
 const { VITE_APP_URL, VITE_APP_PATH } = import.meta.env;
 
 const productModal = {
@@ -55,10 +56,6 @@ const productModal = {
       tempProduct: {},
     };
   },
-  // template: '#userProductModal',
-  mounted() {
-    // this.modal = new bootstrap.Modal(this.$refs.modal);
-  }
 }
 
 export default {
@@ -92,7 +89,12 @@ export default {
       this.$http
         .post(`${VITE_APP_URL}/v2/api/${VITE_APP_PATH}/cart`, { data })
         .then((res) => {
-          alert(`預約成功`)
+          Swal.fire({
+            title: '成功加入課程!',
+            showConfirmButton: false,
+            icon: 'success',
+            timer: 1500
+          })
         });
     },
     openModal(id) {

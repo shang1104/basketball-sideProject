@@ -59,6 +59,6 @@ export default {
 
 <style scoped>
 .container-fluid {
-  min-height: calc(100vh - 24vh);
+  min-height: calc(100vh - 22vh);
 }
 </style>

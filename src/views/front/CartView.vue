@@ -16,13 +16,13 @@
     <div class="container-fluid bg-black py-5">
       <div class="container">
         <div class="row d-flex justify-content-evenly">
-          <div class="col-lg-4 mb-4 mb-xl-0">
-            <h6 class="text-white text-center pb-5">已預約課程</h6>
+          <div class="col-lg-5 mb-4 mb-xl-0">
+            <h6 class="text-white text-left">已預約課程</h6>
             <table class="table align-middle">
               <thead>
                 <tr class="text-white">
                   <th class="col-2">上課名稱</th>
-                  <th class="col-1" style="50px;">堂數</th>
+                  <th class="col-1 text-center" style="50px;">堂數</th>
                   <th class="col-2">價格</th>
                 </tr>
               </thead>
@@ -34,7 +34,7 @@
                     </td>
                     <td>
                       <div class="input-group input-group-sm">
-                        <select name="" id="" class="form-control bg-black text-white" v-model="item.qty" @change="updateCartItem(item)" :disabled="item.id === loadingItem">
+                        <select name="" id="" class="form-control bg-black text-white text-center" v-model="item.qty" @change="updateCartItem(item)" :disabled="item.id === loadingItem">
                           <option :value="i" v-for="i in 20" :key="i +'123'">{{ i }}</option>
                         </select>
                       </div>
@@ -55,7 +55,7 @@
               </tfoot>
             </table>
           </div>
-          <div class="col-lg-4">
+          <div class="col-lg-5">
             <h6 class="text-white text-center mb-9">填寫個人資料</h6>
             <VForm v-slot="{ errors }" @submit="createOrder" class="form-signin position-relative text-center">
               <div class="form-floating text-white mb-6">
@@ -135,7 +135,7 @@ export default {
       form: {
         user: {
           name: '',
-          eamil: '',
+          email: '',
           tel: '',
           address: '',
         },
@@ -177,10 +177,12 @@ export default {
           this.orderId = res.data.orderId
           this.$router.push(`/order/${this.orderId}`)
         })
-        // https://vue3-course-api.hexschool.io/v2/api/shangway/order
         .catch(error => {
           console.log(error);
         })
+    },
+    updateCartItem() {
+
     }
   },
   mounted() {
@@ -198,5 +200,8 @@ export default {
 }
 .tableDark:hover {
   background-color: #221a4f;
+}
+.container-fluid {
+  min-height: calc(100vh - 43.9vh);
 }
 </style>

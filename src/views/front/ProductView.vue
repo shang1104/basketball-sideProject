@@ -1,31 +1,24 @@
 <template>
-  <!-- {{product.category}}
-  {{product.content}}
-  {{product.description}}
-  {{product.id}}
-  {{product.imageUrl}}
-  {{product.price}}
-  {{product.origin_price}}
-  {{product.unit}}
-  {{product.num}} -->
   <div class="container-fluid bg-black">
     <div class="container">
       <div class="row">
         <div class="col-12 m-2">
           <div class="nav">
             <ul class="list-unstyled text-white d-flex">
-              <li class="me-1">首頁 > </li>
-              <li class="me-1">課程頁面 > </li>
-              <li class="bg-white text-black rounded-1 px-1">課程細節</li>
+              <li>
+                <router-link class="text-white text-decoration-none" to="/products">
+                  課程內容&ensp;>&ensp;
+                </router-link>
+              </li>
+              <li class="bg-white text-black rounded-1 px-1">{{ products.title }}</li>
             </ul>
           </div>
         </div>
       </div>
-      <!-- <div v-for="product in products" :key="product.id"></div> -->
-      <div class="row text-white">
+      <div class="row text-white pb-5">
         <div class="col-12 col-xl-6">
           <div class="card">
-            <img :src="products.imageUrl" style="height:400px;background-repeat:no-repeat;background-size:100% 100%" alt="防守圖片">
+            <img :src="products.imageUrl" style="height:400px;background-repeat:no-repeat;background-size:100% 100%" alt="課程圖片">
           </div>
         </div>
         <div class="col-12 col-xl-6 d-flex flex-column justify-content-between">

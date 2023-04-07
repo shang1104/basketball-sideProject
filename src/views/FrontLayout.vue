@@ -78,8 +78,6 @@ export default {
           </ul>
         </div>
       </div>
-    </div>
-    <div class="container">
       <div class="row">
         <div class="col-12">
           <p class="fs-10 text-sm-center text-xl-start text-white">Copyright © 2023 shang. All rights reserved.</p>
