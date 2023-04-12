@@ -21,14 +21,14 @@
                     </td>
                     <td>
                       <div class="input-group input-group-sm">
-                        <select name="" id="" class="form-control bg-black text-white" v-model="item.qty" @change="updateCartItem(item)" :disabled="item.id === loadingItem">
+                        <select name="" id="" class="form-control bg-black text-white" v-model="item.qty" @change="updateCartItem(item)" :disabled="item.id === cartItem">
                           <option :value="i" v-for="i in 20" :key="i +'123'">{{ i }}</option>
                         </select>
                       </div>
                     </td>
                     <td class="text-white d-flex justify-content-between">
                       {{ item.product.price }}
-                      <button type="button" class="btn btn-outline-danger btn-sm" @click="deleteItem(item)" :disabled="item.id === loadingItem"><i class="fa-solid fa-trash"></i>
+                      <button type="button" class="btn btn-outline-danger btn-sm" @click="deleteItem(item)" :disabled="item.id === cartItem"><i class="fa-solid fa-trash"></i>
                       </button>
                     </td>
                   </tr>
@@ -57,7 +57,7 @@ export default {
       products: [],
       productId: '',
       cart: {},
-      loadingItem: '', //存id
+      cartItem: '', //存id
       form: {
         user: {
           name: '',
@@ -113,13 +113,13 @@ export default {
         product_id: item.product.id,
         qty: item.qty,
       };
-      this.loadingItem = item.id
+      this.cartItem = item.id
       // console.log(data, item.id);
       this.$http.put(`${VITE_APP_URL}/v2/api/${VITE_APP_PATH}/cart/${item.id}`, { data })
         .then(res => {
           console.log('更新購物車', res.data);
           this.getCarts();
-          this.loadingItem = '';
+          this.cartItem = '';
         })
       this.getProducts();
     },

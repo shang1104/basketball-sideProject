@@ -44,20 +44,9 @@
 
 <script> //
 import { RouterLink } from "vue-router";
-import TestView from '../../components/TestView.vue';
+// import TestView from '../../components/TestView.vue';
 import Swal from 'sweetalert2'
 const { VITE_APP_URL, VITE_APP_PATH } = import.meta.env;
-
-const productModal = {
-  props: ['id'],
-  data() {
-    return {
-      modal: {},
-      tempProduct: {},
-    };
-  },
-}
-
 export default {
   data() {
     return {
@@ -66,16 +55,19 @@ export default {
     };
   },
   components: {
-    RouterLink, TestView,
+    RouterLink,
   },
   methods: {
     getProducts() {
+      const loader = this.$loading.show({
+        canCancel: false,
+      })
       this.$http
         .get(`${VITE_APP_URL}/v2/api/${VITE_APP_PATH}/products/all`)
         .then((res) => {
           console.log(res)
           this.products = res.data.products;
-          console.log(this.products)
+          loader.hide()
         })
         .catch((error) => {
           console.log(error);

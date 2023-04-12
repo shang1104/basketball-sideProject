@@ -1,14 +1,4 @@
-<script>
-import { RouterView, RouterLink } from "vue-router"
-export default {
-  components: {
-    RouterView, RouterLink,
-  }
-}
-</script>
-
 <template>
-
   <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-black">
       <div class="container">

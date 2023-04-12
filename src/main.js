@@ -38,7 +38,7 @@ const app = createApp(App)
 app.use(createPinia())
 // vue Loading
 app.use(LoadingPlugin, {
-  color: '#FF0000'
+  color: 'blue',
 })
 // vue sweetalert2
 // app.use(VueSweetalert2);

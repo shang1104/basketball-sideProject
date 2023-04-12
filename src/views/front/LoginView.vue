@@ -1,28 +1,26 @@
 <template>
-  <main>
-    <div class="container-fluid bg-black py-9">
-      <div class="container">
-        <div class="row">
-          <h3 class="text-white text-center pb-9">註冊/登入</h3>
-          <div class="col-sm-8 col-lg-6 col-xl-4 mx-auto">
-            <form class="form-signin" @submit.prevent="login">
-              <div class="form-floating mb-6">
-                <input type="email" class="form-control" v-model="user.username" id="floatingInput" placeholder="name@example.com" required autofocus>
-                <label for="floatingInput">Email address</label>
-              </div>
-              <div class="form-floating mb-6">
-                <input type="password" class="form-control" v-model="user.password" id="floatingPassword" placeholder="Password" required>
-                <label for="floatingPassword">Password</label>
-              </div>
-              <button class="btn btn-lg btn-white w-100" id="login" type="submit">
-                登入
-              </button>
-            </form>
-          </div>
+  <section class="container-fluid bg-black py-9">
+    <div class="container">
+      <div class="row">
+        <h3 class="text-white text-center pb-9">註冊/登入</h3>
+        <div class="col-sm-8 col-lg-6 col-xl-4 mx-auto">
+          <form class="form-signin" @submit.prevent="login">
+            <div class="form-floating mb-6">
+              <input type="email" class="form-control" v-model="user.username" id="floatingInput" placeholder="name@example.com" required autofocus>
+              <label for="floatingInput">Email address</label>
+            </div>
+            <div class="form-floating mb-6">
+              <input type="password" class="form-control" v-model="user.password" id="floatingPassword" placeholder="Password" required>
+              <label for="floatingPassword">Password</label>
+            </div>
+            <button class="btn btn-lg btn-white w-100" id="login" type="submit">
+              登入
+            </button>
+          </form>
         </div>
       </div>
     </div>
-  </main>
+  </section>
 </template>
 
 <script>
@@ -58,7 +56,7 @@ export default {
 </script>
 
 <style scoped>
-.container-fluid {
-  min-height: calc(100vh - 22vh);
+section {
+  min-height: calc(100vh - 168px);
 }
 </style>

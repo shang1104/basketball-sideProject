@@ -1,7 +1,7 @@
 <template>
   <!-- 填寫資訊 , 確認付款 , 訂單完成 -->
-  <section>
-    <div class="container-fulid bg-black py-10">
+  <section class="bg-black">
+    <div class="container-fluid bg-black py-10">
       <ul class="row d-flex justify-content-center list-unstyled m-0">
         <li class="col-8 text-white d-flex justify-content-around">
           <div class="badge rounded-pill fs-7 bg-white text-primary">1.填寫資訊</div>
@@ -10,16 +10,14 @@
         </li>
       </ul>
     </div>
-  </section>
-  <section>
     <!-- 要把已預約的課程 顯示此頁 -->
     <div class="container-fluid bg-black py-5">
       <div class="container">
         <div class="row d-flex justify-content-evenly">
           <div class="col-lg-5 mb-4 mb-xl-0">
             <h6 class="text-white text-left">已預約課程</h6>
-            <table class="table align-middle">
-              <thead>
+            <table class="table align-middle vl-parent">
+              <thead ref="formContainer">
                 <tr class="text-white">
                   <th class="col-2">上課名稱</th>
                   <th class="col-1 text-center" style="50px;">堂數</th>
@@ -29,19 +27,20 @@
               <tbody>
                 <template v-if="cart.carts">
                   <tr class="tableDark" v-for="item in cart.carts" :key="item.id">
+                    <!-- <p style="color:white" class="fs-1">{{  }}</p> -->
                     <td class="text-white">
                       {{ item.product.title }}
                     </td>
                     <td>
                       <div class="input-group input-group-sm">
-                        <select name="" id="" class="form-control bg-black text-white text-center" v-model="item.qty" @change="updateCartItem(item)" :disabled="item.id === loadingItem">
+                        <select name="" id="" class="form-control bg-black text-white text-center" v-model="item.qty" @change="updateCartItem(item)" :disabled="item.id === cartItem">
                           <option :value="i" v-for="i in 20" :key="i +'123'">{{ i }}</option>
                         </select>
                       </div>
                     </td>
                     <td class="text-white d-flex justify-content-between">
-                      {{ item.product.price }}
-                      <button type="button" class="btn btn-outline-danger btn-sm" @click="deleteItem(item)" :disabled="item.id === loadingItem"><i class="fa-solid fa-trash"></i>
+                      {{ item.final_total }}
+                      <button type="button" class="btn btn-outline-danger btn-sm" @click="deleteItem(item)" :disabled="item.id === cartItem"><i class="fa-solid fa-trash"></i>
                       </button>
                     </td>
                   </tr>
@@ -127,11 +126,15 @@
 </template>
 
 <script>
+import LoginView from './LoginView.vue';
+import LoadingView from '../../components/LoadingView.vue'
 const { VITE_APP_URL, VITE_APP_PATH } = import.meta.env;
 export default {
   data() {
     return {
       cart: {},
+      cartItem: '',
+      fullPage: false,  //vueLoading 滿版
       form: {
         user: {
           name: '',
@@ -144,19 +147,32 @@ export default {
       orderId: '',
     }
   },
+  components: {
+    LoginView,
+  },
   methods: {
     //電話認證 
     isPhone(value) {
       const phoneNumber = /^(09)[0-9]{8}$/
       return phoneNumber.test(value) ? true : '需要正確的電話號碼'
     },
-    getCarts() { //取得購物車
+    //取得購物車
+    getCarts() {
+      const loader = this.$loading.show({
+        container: this.fullPage ? null : this.$refs.formContainer,
+        canCancel: false,
+        opacity: 0.2,
+      })
+      // setTimeout(() => {
       this.$http
         .get(`${VITE_APP_URL}/v2/api/${VITE_APP_PATH}/cart`)
         .then((res => {
           this.cart = res.data.data;
-          console.log('取得購物車', res.data.data);
+          loader.hide()
+          console.log('購物車', res.data.data);
         }))
+      // }, 50000)
+
     },
     // 刪除購物車
     deleteItem(item) {
@@ -181,9 +197,21 @@ export default {
           console.log(error);
         })
     },
-    updateCartItem() {
-
-    }
+    //修改購物車
+    updateCartItem(item) {
+      const data = {
+        product_id: item.product.id,
+        qty: item.qty,
+      };
+      this.cartItem = item.id,
+        this.$http
+          .put(`${VITE_APP_URL}/v2/api/${VITE_APP_PATH}/cart/${item.id}`, { data })
+          .then(res => {
+            console.log('更新購物車', res.data);
+            this.cartItem = '';
+            this.getCarts();
+          })
+    },
   },
   mounted() {
     this.getCarts();
@@ -201,7 +229,7 @@ export default {
 .tableDark:hover {
   background-color: #221a4f;
 }
-.container-fluid {
-  min-height: calc(100vh - 43.9vh);
+section {
+  min-height: calc(100vh - 168px);
 }
 </style>
