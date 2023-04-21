@@ -4,6 +4,11 @@
       <div class="container">
         <div class="row">
           <h3 class="text-white text-center pb-10">所有課程</h3>
+          <p class="text-white">分類 :
+            <select class="bg-primary text-white" v-model="select" @change="filterProduct" name="" id="">
+              <option :value="show" v-for="show in searchShow" :key="`${show}+123`">{{ show }}</option>
+            </select>
+          </p>
           <table class="table">
             <thead class="text-white">
               <tr class="text-center">
@@ -52,20 +57,31 @@ export default {
     return {
       products: {},
       productId: '',
+      searchWords: {},
+      searchShow: ['全部', '投籃', '運球', '防守', '基本動作'],
+      select: '全部',
+      filterProducts: [],
     };
   },
   components: {
     RouterLink,
   },
   methods: {
+    filterProduct() {
+      this.getProducts()
+    },
     getProducts() {
       const loader = this.$loading.show({
         canCancel: false,
       })
+      let category = this.select
+      if (category == "全部") {
+        category = ''
+      }
       this.$http
-        .get(`${VITE_APP_URL}/v2/api/${VITE_APP_PATH}/products/all`)
+        .get(`${VITE_APP_URL}/v2/api/${VITE_APP_PATH}/products?category=${category}`)
         .then((res) => {
-          console.log(res)
+          // console.log('產品料表', res)
           this.products = res.data.products;
           loader.hide()
         })
@@ -97,7 +113,6 @@ export default {
           this.$router.push(`/product/${id}`)
         })
       // console.log('外層帶入 productId', id)
-
     }
   },
   mounted() {

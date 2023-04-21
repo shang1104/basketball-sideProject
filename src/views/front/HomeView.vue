@@ -8,10 +8,15 @@
             <div class="d-flex flex-column mb-9">
               <p class="text-white fs-4 fst-normal">籃球家教</p>
               <div class="d-flex">
-                <input type="text" class="w-75 me-6 rounded-3">
+                <input type="text" class="w-75 me-6 rounded-3" placeholder="輸入搜尋條件">
                 <span class="border border-1 fs-3 borer-white rounded-circle text-white material-symbols-outlined">
                   search
                 </span>
+              </div>
+              <div class="my-2 mx-1">
+                <router-link to="/reserve" class="me-2 px-1 text-primary bg-white border border-1 rounded-1 text-decoration-none">預約上課</router-link>
+                <router-link to="/products" class="me-2 px-1 text-primary bg-white border border-1 rounded-1 text-decoration-none">課程介紹</router-link>
+                <router-link to="/promble" class="me-2 px-1 text-primary bg-white border border-1 rounded-1 text-decoration-none">常見問題</router-link>
               </div>
             </div>
           </div>
@@ -252,6 +257,13 @@
   </main>
 </template>
 <script>
+export default {
+  data() {
+    return {
+    }
+  }
+
+}
 </script>
 <style scoped>
 .container-fluid {
