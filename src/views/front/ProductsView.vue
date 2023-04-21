@@ -68,6 +68,7 @@ export default {
   },
   methods: {
     filterProduct() {
+      console.log(this.select);
       this.getProducts()
     },
     getProducts() {
@@ -75,11 +76,11 @@ export default {
         canCancel: false,
       })
       let category = this.select
-      if (category == "全部") {
+      if (category == '全部') {
         category = ''
       }
       this.$http
-        .get(`${VITE_APP_URL}/v2/api/${VITE_APP_PATH}/products?category=${category}`)
+        .get(`${VITE_APP_URL}v2/api/${VITE_APP_PATH}/products?category=${category}`)
         .then((res) => {
           // console.log('產品料表', res)
           this.products = res.data.products;
