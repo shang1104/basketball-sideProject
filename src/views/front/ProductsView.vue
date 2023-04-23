@@ -96,7 +96,7 @@ export default {
         qty: 1,
       };
       this.$http
-        .post(`${VITE_APP_URL}/v2/api/${VITE_APP_PATH}/cart`, { data })
+        .post(`${VITE_APP_URL}v2/api/${VITE_APP_PATH}/cart`, { data })
         .then((res) => {
           Swal.fire({
             title: '成功加入課程!',
@@ -108,7 +108,7 @@ export default {
     },
     openModal(id) {
       this.productId = id
-      this.$http.get(`${VITE_APP_URL}/v2/api/${VITE_APP_PATH}/product/${id}`)
+      this.$http.get(`${VITE_APP_URL}v2/api/${VITE_APP_PATH}/product/${id}`)
         .then((res) => {
           console.log(res);
           this.$router.push(`/product/${id}`)
