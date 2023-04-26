@@ -82,7 +82,7 @@ export default {
       this.$http
         .get(`${VITE_APP_URL}v2/api/${VITE_APP_PATH}/products?category=${category}`)
         .then((res) => {
-          // console.log('產品料表', res)
+          console.log('產品料表', res)
           this.products = res.data.products;
           loader.hide()
         })
