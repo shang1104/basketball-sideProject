@@ -276,11 +276,6 @@ export default {
 }
 </script>
 <style scoped>
-.clearfix:after {
-  display: block;
-  clear: both;
-  content: "";
-}
 .searchList {
   display: none;
 }
