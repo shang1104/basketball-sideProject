@@ -3,7 +3,8 @@
     <div class="container-fluid banner">
       <div class="container">
         <div class="row position-relative">
-          <div class="col-sm-12 col-md-6 position-absolute translate-y" style="height:316px">
+          <div class="col-sm-12 col-md-6 position-absolute translate-y">
+            <!-- style="height:316px" -->
             <img class="basketball-tutor" src="/src/assets/專題作品圖/basketball-tutor.png" alt="籃球圖片">
             <div class="d-flex flex-column mb-9">
               <p class="text-white fs-4 fst-normal">籃球家教</p>
@@ -277,11 +278,14 @@ export default {
 </script>
 <style scoped>
 .searchList {
-  display: none;
+  display: flex;
+  opacity: 0;
+  visibility: hidden;
 }
 .searchInput:focus + .searchList,
 .searchList:active {
-  display: flex;
+  opacity: 1;
+  visibility: visible;
 }
 .container-fluid {
   min-height: calc(100vh);
