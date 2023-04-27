@@ -3,20 +3,30 @@
     <div class="container-fluid banner">
       <div class="container">
         <div class="row position-relative">
-          <div class="col-sm-12 col-md-6 position-absolute translate-y">
+          <div class="col-sm-12 col-md-6 position-absolute translate-y" style="height:316px">
             <img class="basketball-tutor" src="/src/assets/專題作品圖/basketball-tutor.png" alt="籃球圖片">
             <div class="d-flex flex-column mb-9">
               <p class="text-white fs-4 fst-normal">籃球家教</p>
-              <div class="d-flex">
-                <input type="text" class="w-75 me-6 rounded-3" placeholder="輸入搜尋條件">
-                <span class="border border-1 fs-3 borer-white rounded-circle text-white material-symbols-outlined">
-                  search
-                </span>
-              </div>
-              <div class="my-2 mx-1">
-                <router-link to="/reserve" class="me-2 px-1 text-primary bg-white border border-1 rounded-1 text-decoration-none">預約上課</router-link>
-                <router-link to="/products" class="me-2 px-1 text-primary bg-white border border-1 rounded-1 text-decoration-none">課程介紹</router-link>
-                <router-link to="/promble" class="me-2 px-1 text-primary bg-white border border-1 rounded-1 text-decoration-none">常見問題</router-link>
+              <div class="d-flex my-3 ">
+                <div class="col-9">
+                  <input type="text" class="searchInput input-search w-100 me-6 rounded-3" placeholder="輸入搜尋條件">
+                  <ul class="my-2 mx-1 flex-row searchList list-unstyled">
+                    <li>
+                      <router-link to="/reserve" class="me-2 px-1 text-primary bg-white border border-1 rounded-1 text-decoration-none">預約上課</router-link>
+                    </li>
+                    <li>
+                      <router-link to="/products" class="me-2 px-1 text-primary bg-white border border-1 rounded-1 text-decoration-none">課程介紹</router-link>
+                    </li>
+                    <li>
+                      <router-link to="/promble" class="me-2 px-1 text-primary bg-white border border-1 rounded-1 text-decoration-none">常見問題</router-link>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-3">
+                  <span>
+                    <a class="border border-1 fs-5 borer-white text-decoration-none rounded-circle text-white material-symbols-outlined" href="#">search</a>
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -266,6 +276,18 @@ export default {
 }
 </script>
 <style scoped>
+.clearfix:after {
+  display: block;
+  clear: both;
+  content: "";
+}
+.searchList {
+  display: none;
+}
+.searchInput:focus + .searchList,
+.searchList:active {
+  display: flex;
+}
 .container-fluid {
   min-height: calc(100vh);
 }
