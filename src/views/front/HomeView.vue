@@ -4,7 +4,6 @@
       <div class="container">
         <div class="row position-relative">
           <div class="col-sm-12 col-md-6 position-absolute translate-y">
-            <!-- style="height:316px" -->
             <img class="basketball-tutor" src="/src/assets/專題作品圖/basketball-tutor.png" alt="籃球圖片">
             <div class="d-flex flex-column mb-9">
               <p class="text-white fs-4 fst-normal">籃球家教</p>
@@ -23,7 +22,7 @@
                     </li>
                   </ul>
                 </div>
-                <div class="col-3">
+                <div class="col-3 ms-6">
                   <span>
                     <a class="border border-1 fs-5 borer-white text-decoration-none rounded-circle text-white material-symbols-outlined" href="#">search</a>
                   </span>
