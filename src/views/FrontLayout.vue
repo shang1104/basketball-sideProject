@@ -43,12 +43,12 @@
   <footer class="bg-black">
     <div class="container">
       <div class="row">
-        <div class="col-12 col-xl-4 mb-9 mb-xl-0">
+        <div class="col-12 col-xl-4 mb-9 mb-xl-0 d-flex justify-content-center justify-content-xl-start">
           <span class="d-flex flex-lg-row justify-content-start justify-content-lg-center justify-content-xl-start align-items-start align-items-sm-center flex-column text-white fw-bold fst-italic fs-5 text-nowrap">basketball tuor
             <span class="fs-8 ms-5 fst-normal">籃球家教</span>
           </span>
         </div>
-        <div class="col-12 col-xl-4 d-flex text-white justify-content-sm-center justify-content-md-around align-items-center mb-9 mb-xl-0">
+        <div class="col-12 col-xl-4 d-flex text-white justify-content-around align-items-center mb-9 mb-xl-0">
           <a href="#" class="text-white text-decoration-none"><i class="fa-brands fa-facebook d-flex align-items-center fs-8 icon"></i></a>
           <a href="#" class="text-white text-decoration-none"><i class="fa-brands fa-facebook-messenger d-flex align-items-center fs-8 icon"></i></a>
           <a href="#" class="text-white text-decoration-none"><i class="fa-brands fa-line d-flex align-items-center fs-8 icon"></i></a>
