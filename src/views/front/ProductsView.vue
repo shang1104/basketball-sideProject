@@ -10,7 +10,7 @@
             </select>
           </p>
           <div class="col-12">
-            <table class="table">
+            <table class="table border-collapse">
               <thead class="text-white">
                 <tr class="text-center d-none d-md-table-row">
                   <th class="col-md-3">圖片</th>
@@ -23,17 +23,32 @@
               </thead>
               <tbody class="text-white">
                 <tr class="text-center tableDark border border-start-0 border-end-0 border-bottom-1" v-for="product in products" :key="product.id">
-                  <td class="col-6 col-md-4 border-0" style="height: 100px; 
-                    background-size: contain;
-                    background-repeat: no-repeat;
-                    background-position: center" :style="{backgroundImage:`url(${product.imageUrl})`}"></td>
-                  <td class="col-3 col-md-3 align-middle border-0">{{ product.title }}</td>
-                  <td class="d-none d-md-table-cell align-middle border-0">{{ product.unit }}</td>
-                  <td class="col-1 col-md-1 align-middle border-0">NT${{ product.price }}</td>
-                  <td class="col-1 col-md-1 d-flex d-md-table-cell align-middle border-0">
+                  <!-- 電腦版 -->
+                  <td class="col-md-4 border-0 d-none d-md-table-cell" style="height: 100px;">
+                    <img :src="product.imageUrl" style="height:100px" alt="">
+                  </td>
+                  <td class="col-md-3 align-middle border-0 d-none d-md-table-cell">{{ product.title }}</td>
+                  <td class=" align-middle border-0 d-none d-md-table-cell">{{ product.unit }}</td>
+                  <td class="col-md-1 align-middle border-0 d-none d-md-table-cell">NT${{ product.price }}</td>
+                  <td class="col-md-1 d-flex d-md-table-cell align-middle border-0 d-none d-md-table-cell">
                     <button @click="openModal(product.id)" type="button" class="btn btn-primary btn-sm text-white text-nowrap me-2">查看更多</button>
                   </td>
-                  <td class="col-1 col-md-1 d-flex d-md-table-cell align-middle border-0">
+                  <td class="col-1 col-md-1 d-flex d-md-table-cell align-middle border-0 d-none d-md-table-cell">
+                    <button @click="addToCart(product.id)" type="button" class="btn btn-pink btn-sm text-white text-nowrap">加入課程</button>
+                  </td>
+                  <!-- 手機版 -->
+                  <td class="col-6 border-0 d-table-cell d-md-none" style="height: 100px; 
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    background-position: center" :style="{backgroundImage:`url(${product.imageUrl})`}">
+                  </td>
+                  <td class="col-3 align-middle border-0 d-table-cell d-md-none">{{ product.title }}</td>
+                  <td class="d-none d-md-table-cell align-middle border-0 d-table-cell d-md-none">{{ product.unit }}</td>
+                  <td class="col-1 align-middle border-0 d-table-cell d-md-none">NT$<br>{{ product.price }}</td>
+                  <td class="col-1 d-flex d-md-table-cell align-middle border-0 d-table-cell d-md-none">
+                    <button @click="openModal(product.id)" type="button" class="btn btn-primary btn-sm text-white text-nowrap me-2">查看更多</button>
+                  </td>
+                  <td class="col-1 d-flex d-md-table-cell align-middle border-0 d-table-cell d-md-none">
                     <button @click="addToCart(product.id)" type="button" class="btn btn-pink btn-sm text-white text-nowrap">加入課程</button>
                   </td>
                 </tr>
