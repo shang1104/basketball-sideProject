@@ -84,11 +84,14 @@
                 <label for="start">上課時間</label>
                 <!-- <input type="date" id="start" name="trip-start" value="2018-07-22" min="2018-01-01" max="2018-12-31"> -->
                 <!-- <VueDatePicker :value="dateValue" :min="minDate" :max="maxDate" placeholder="chose" v-model="date"></VueDatePicker> -->
-                <VueDatePicker v-mode="date" locale="zh-cn" value-format="yyyy-MM-dd hh:mm:ss"></VueDatePicker>
+                <!-- <input type="date" id="start" name="trip-start" value="2018-07-22" min="2018-01-01" max="2018-12-31"> -->
+                <VueDatePicker :min-date="new Date()" :max-date="new Date(new Date().setMonth(new Date().getMonth()+1))" placeholder="選擇日期" v-mode="date" locale="zh-TW">{{date}}</VueDatePicker>
               </div>
+
               <div class=" text-white mb-6 d-flex flex-column text-start">
                 <label for="paymentMethod" class="form-label">付款方式</label>
                 <select class="form-control" name="paymentMethod" id="paymentMethod" v-model="form.user.paymentMethod">
+                  <option value="" disabled>請選擇付款方式</option>
                   <option value="信用卡">信用卡</option>
                   <option value="現金付款">現金付款</option>
                 </select>
@@ -119,6 +122,7 @@ export default {
       cart: {},
       cartItem: '',
       fullPage: false,  //vueLoading 滿版
+      date: null,
       form: {
         user: {
           name: '',
