@@ -82,12 +82,11 @@
               </div>
               <div class="text-white mb-6 d-flex flex-column text-start">
                 <label for="start">上課時間</label>
-                <!-- <input type="date" id="start" name="trip-start" value="2018-07-22" min="2018-01-01" max="2018-12-31"> -->
-                <!-- <VueDatePicker :value="dateValue" :min="minDate" :max="maxDate" placeholder="chose" v-model="date"></VueDatePicker> -->
-                <!-- <input type="date" id="start" name="trip-start" value="2018-07-22" min="2018-01-01" max="2018-12-31"> -->
-                <VueDatePicker :min-date="new Date()" :max-date="new Date(new Date().setMonth(new Date().getMonth()+1))" placeholder="選擇日期" v-mode="date" locale="zh-TW">{{date}}</VueDatePicker>
+                <!-- <VueDatePicker :min-date="new Date()" :max-date="new Date(new Date().setMonth(new Date().getMonth()+1))" placeholder="選擇日期" v-model="date" locale="zh-TW">{{date}}</VueDatePicker> -->
+                <!-- !!!  test -->
+                <VueDatePicker v-model="date" :format="format" />
               </div>
-
+              <!-- !!!  test -->
               <div class=" text-white mb-6 d-flex flex-column text-start">
                 <label for="paymentMethod" class="form-label">付款方式</label>
                 <select class="form-control" name="paymentMethod" id="paymentMethod" v-model="form.user.paymentMethod">
@@ -122,7 +121,10 @@ export default {
       cart: {},
       cartItem: '',
       fullPage: false,  //vueLoading 滿版
-      date: null,
+      // test
+      date: new Date(),
+      // date: null,
+      // test
       form: {
         user: {
           name: '',
@@ -206,6 +208,19 @@ export default {
   mounted() {
     this.getCarts();
   },
+  // test
+  computed: {
+    format() {
+      return (date) => {
+        const day = date.getDate();
+        const month = date.getMonth() + 1;
+        const year = date.getFullYear();
+
+        return `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+      };
+    },
+  }
+  // test
 }
 </script>
 
