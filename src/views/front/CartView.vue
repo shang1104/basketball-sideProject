@@ -1,21 +1,13 @@
 <template>
   <!-- 填寫資訊 , 確認付款 , 訂單完成 -->
   <section class="bg-black">
-    <div class="container-fluid bg-black py-10">
-      <ul class="row justify-content-center list-unstyled m-0">
-        <li class="col-8 d-flex flex-column flex-md-row justify-content-md-around text-white text-center">
-          <div class="badge rounded-pill fs-7 bg-white text-primary mb-2 mb-md-0">1.填寫資訊</div>
-          <div class="badge rounded-pill fs-7 bg-secondary text-primary mb-2 mb-md-0">2.確認付款</div>
-          <div class="badge rounded-pill fs-7 bg-secondary text-primary mb-2 mb-md-0">3.付款完成</div>
-        </li>
-      </ul>
-    </div>
+    <StateView :state="1"></StateView>
     <!-- 要把已預約的課程 顯示此頁 -->
-    <div class="container-fluid bg-black py-5">
+    <div class="container-fluid bg-black py-5" v-if="cart.total>0">
       <div class="container">
         <div class="row d-flex justify-content-center mb-md-9 mb-0">
           <div class="col-md-10 col-lg-6 mb-4 mb-xl-0">
-            <!-- <h6 class="text-white text-left">已預約課程</h6> -->
+            <h6 class="text-white text-left">已預約課程</h6>
             <table class="table align-middle vl-parent">
               <thead ref="formContainer">
                 <tr class="text-white">
@@ -58,7 +50,7 @@
         </div>
         <div class="row d-flex justify-content-center">
           <div class="col-md-10 col-lg-6">
-            <!-- <h6 class="text-white text-center mb-9">填寫個人資料</h6> -->
+            <h6 class="text-white text-left mb-9">填寫個人資料</h6>
             <VForm v-slot="{ errors }" @submit="createOrder">
               <div class="text-white mb-3 d-flex flex-column text-start">
                 <label for="name" class="text-white form-label">姓名</label>
@@ -81,12 +73,9 @@
                 <ErrorMessage name="信箱" class="invalid-feedback" />
               </div>
               <div class="text-white mb-6 d-flex flex-column text-start">
-                <label for="start">上課時間</label>
-                <!-- <VueDatePicker :min-date="new Date()" :max-date="new Date(new Date().setMonth(new Date().getMonth()+1))" placeholder="選擇日期" v-model="date" locale="zh-TW">{{date}}</VueDatePicker> -->
-                <!-- !!!  test -->
-                <VueDatePicker v-model="date" :format="format" />
+                <label for="date">上課時間</label>
+                <VueDatePicker :allowed-dates="allowDates" :start-time="{ hours: 10, minutes: 0 }" :min-time="{ hours: 8, minutes: 0 }" :max-time="{ hours: 21, minutes: 0 }" placeholder="選擇日期" v-model="form.user.date" locale="zh-TW" hours="1" minutes-grid-increment="30" format="yyyy/MM/dd HH:mm"></VueDatePicker>
               </div>
-              <!-- !!!  test -->
               <div class=" text-white mb-6 d-flex flex-column text-start">
                 <label for="paymentMethod" class="form-label">付款方式</label>
                 <select class="form-control" name="paymentMethod" id="paymentMethod" v-model="form.user.paymentMethod">
@@ -96,7 +85,7 @@
                 </select>
               </div>
               <div class="d-flex justify-content-center mt-5">
-                <button type="submit" class="btn btn-white text-black">
+                <button type="submit" class="btn btn-white text ">
                   送出報名表
                 </button>
               </div>
@@ -105,12 +94,21 @@
         </div>
       </div>
     </div>
+    <div class="container" v-else>
+      <div class="row text-center">
+        <div class="col-12 text-center">
+          <p class="text-white mb-3 fs-6">目前並無任何課程預約</p>
+          <p class="text-white fs-6">返回課程頁面</p>
+          <RouterLink to="/products" class="text bg-white fs-1 px-1 border border-1 rounded-3 text-decoration-none">預約上課</RouterLink>
+        </div>
+      </div>
+    </div>
   </section>
-
 </template>
 
 <script>
-import LoginView from './LoginView.vue';
+// 載入狀態
+import StateView from '../../components/StateView.vue';
 // 載入日曆套件
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
@@ -121,10 +119,7 @@ export default {
       cart: {},
       cartItem: '',
       fullPage: false,  //vueLoading 滿版
-      // test
-      date: new Date(),
-      // date: null,
-      // test
+      allowDates: [], // VueDatePicker的選擇時間
       form: {
         user: {
           name: '',
@@ -132,6 +127,7 @@ export default {
           tel: '',
           address: '',
           paymentMethod: '信用卡',
+          date: null,
         },
         message: '',
       },
@@ -139,8 +135,8 @@ export default {
     }
   },
   components: {
-    LoginView, VueDatePicker
-
+    StateView,
+    VueDatePicker,
   },
   methods: {
     //電話認證 
@@ -207,20 +203,16 @@ export default {
   },
   mounted() {
     this.getCarts();
+    // 日期預設為 2 天後的 8:00
+    this.form.user.date = new Date(
+      new Date(Date.now() + 2 * 24 * 60 * 60 * 1000).setHours(8, 0, 0, 0)
+    );
+    // Vue-datepicker 可選擇的日期
+    this.allowDates = Array.from(
+      { length: 30 },
+      (_, index) => new Date(Date.now() + (index + 2) * 24 * 60 * 60 * 1000)
+    );
   },
-  // test
-  computed: {
-    format() {
-      return (date) => {
-        const day = date.getDate();
-        const month = date.getMonth() + 1;
-        const year = date.getFullYear();
-
-        return `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
-      };
-    },
-  }
-  // test
 }
 </script>
 
@@ -230,5 +222,12 @@ export default {
 }
 section {
   min-height: calc(100vh - 168px);
+}
+.text {
+  color: #120078;
+}
+.text:hover {
+  background-color: black !important;
+  color: white;
 }
 </style>

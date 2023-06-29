@@ -1,15 +1,7 @@
 <template>
   <!-- 填寫資訊 , 確認付款 , 訂單完成 -->
   <section>
-    <div class="container-fulid bg-black py-10">
-      <ul class="row d-flex justify-content-center list-unstyled m-0">
-        <li class="col-8 text-white d-flex justify-content-around">
-          <div class="badge rounded-pill fs-7 bg-white text-primary">1.填寫資訊</div>
-          <div class="badge rounded-pill fs-7 bg-white text-primary">2.確認付款</div>
-          <div class="badge rounded-pill fs-7 bg-secondary text-primary">3.付款完成</div>
-        </li>
-      </ul>
-    </div>
+    <StateView :state="2"></StateView>
   </section>
   <section>
     <!-- 要把已預約的課程 顯示此頁 -->
@@ -60,9 +52,13 @@
                   <td>{{ order.id }}</td>
                 </tr>
                 <tr class="text-white">
+                  <td class="w-25 fw-bold">付款方式</td>
+                  <td>{{ order.user.paymentMethod }}</td>
+                </tr>
+                <tr class="text-white">
                   <td class="w-25 fw-bold">付款狀態</td>
-                  <td v-if="order.is_paid === true" class="text-secondary">尚未付款</td>
-                  <td v-else>已付款</td>
+                  <td v-if="order.is_paid === false" class="text-danger">尚未付款</td>
+                  <td v-else class="text-success">已付款</td>
                 </tr>
                 <tr>
                   <td></td>
@@ -80,6 +76,8 @@
 </template>
 
 <script>
+import StateView from '../../components/StateView.vue';
+//載入狀態
 const { VITE_APP_URL, VITE_APP_PATH } = import.meta.env;
 export default {
   data() {
@@ -87,11 +85,11 @@ export default {
       order: {
         user: {},
       },
-      // products: [],
       cart: {},
       orderId: '',
     }
   },
+  components: { StateView },
   methods: {
     getOrder() {
       this.orderId = this.$route.params.id;

@@ -1,15 +1,7 @@
 <template>
   <!-- 填寫資訊 , 確認付款 , 訂單完成 -->
   <section>
-    <div class="container-fulid bg-black py-10">
-      <ul class="row d-flex justify-content-center list-unstyled m-0">
-        <li class="col-8 text-white d-flex justify-content-around">
-          <div class="badge rounded-pill fs-7 bg-white text-primary">1.填寫資訊</div>
-          <div class="badge rounded-pill fs-7 bg-white text-primary">2.確認付款</div>
-          <div class="badge rounded-pill fs-7 bg-white  text-primary">3.付款完成</div>
-        </li>
-      </ul>
-    </div>
+    <StateView :state="3"></StateView>
   </section>
   <section>
     <!-- 要把已預約的課程 顯示此頁 -->
@@ -85,6 +77,8 @@
 </template>
 
 <script>
+//載入狀態
+import StateView from '../../components/StateView.vue';
 const { VITE_APP_URL, VITE_APP_PATH } = import.meta.env;
 export default {
   data() {
@@ -98,6 +92,7 @@ export default {
       message: '',
     }
   },
+  components: { StateView },
   methods: {
     getOrder() {
       this.orderId = this.$route.params.id;
