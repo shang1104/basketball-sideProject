@@ -28,7 +28,6 @@ const { VITE_APP_URL } = import.meta.env;
 export default {
   data() {
     return {
-      apiUrl: 'https://vue3-course-api.hexschool.io/v2',
       user: {
         username: '',
         password: '',
@@ -37,18 +36,17 @@ export default {
   },
   methods: {
     login() {
-      // console.log(`123`);
-      const api = `${VITE_APP_URL}admin/signin`;
       this.$http
-        .post(api, this.user)
-        .then((response) => {
-          const { token, expired } = response.data;
+        .post(`${VITE_APP_URL}admin/signin`, this.user)
+        .then((res) => {
+          const { token, expired } = res.data;
+          console.log(res.data);
           // 寫入 cookie token
           // expires 設置有效時間
           document.cookie = `hexToken=${token};expires=${new Date(expired)}; path=/`;
-          this.$router.push('/home')
+          this.$router.push('/admin/order')
         }).catch((err) => {
-          alert(err.response.data.message);
+          alert(err.res.data.message);
         });
     },
   },

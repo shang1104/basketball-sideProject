@@ -11,11 +11,7 @@
 </template>
 <script>
 export default {
-  data() {
-    return {
-      props: ['state'],
-    }
-  }
+  props: ['state'],
 }
 </script>
 
