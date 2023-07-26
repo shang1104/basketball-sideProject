@@ -2,10 +2,10 @@
   <header class="sticky-top">
     <nav class="navbar navbar-expand-lg navbar-light bg-black">
       <div class="container">
-        <router-link to="/home"><span class="d-lg-block d-none text-white fw-bold fst-italic fs-5 text-nowrap">basketball tutor
+        <router-link :to="{name:'home'}"><span class="d-lg-block d-none text-white fw-bold fst-italic fs-5 text-nowrap">basketball tutor
             <span class="fs-8 fst-normal">籃球家教</span>
           </span></router-link>
-        <router-link to="/home"><span class="d-lg-none fs-4 text-white text-nowrap">籃球家教</span></router-link>
+        <router-link :to="{name:'home'}"><span class="d-lg-none fs-4 text-white text-nowrap">籃球家教</span></router-link>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
           <span class="xx-active text-center text-white material-symbols-outlined">
             menu
