@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <header class="sticky-top">
     <nav class="navbar navbar-expand-lg navbar-light bg-black">
       <div class="container">
         <router-link to="/home"><span class="d-lg-block d-none text-white fw-bold fst-italic fs-5 text-nowrap">basketball tutor
@@ -37,8 +37,8 @@
     </nav>
   </header>
 
+  <!-- 內頁 -->
   <router-view></router-view>
-  <!-- 點進去的連結是什麼就顯示什麼 -->
 
   <footer class="bg-black">
     <div class="container">
