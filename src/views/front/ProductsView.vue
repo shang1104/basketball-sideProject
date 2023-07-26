@@ -59,12 +59,10 @@
       </div>
     </div>
   </main>
-  <!-- <TestView></TestView> -->
 </template>
 
-<script> //
+<script> 
 import { RouterLink } from "vue-router";
-// import TestView from '../../components/TestView.vue';
 import Swal from 'sweetalert2'
 const { VITE_APP_URL, VITE_APP_PATH } = import.meta.env;
 export default {
