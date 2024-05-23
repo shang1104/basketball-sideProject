@@ -9,7 +9,7 @@
               <p class="text-white fs-4 fst-normal">籃球家教</p>
               <div class="d-flex my-3 ">
                 <div class="col-9">
-                  <input type="text" class="searchInput input-search w-100 me-6 rounded-3" placeholder="輸入搜尋條件">
+                  <input type="text" class="searchInput input-search w-100 me-6 rounded-3" placeholder="請輸入分類課程">
                   <ul class="my-2 mx-1 flex-row searchList list-unstyled">
                     <li>
                       <router-link to="/reserve" class="me-2 px-1 text-primary bg-white border border-1 rounded-1 text-decoration-none">預約上課</router-link>
