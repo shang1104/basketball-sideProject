@@ -1,6 +1,6 @@
 <template>
-  <main>
-    <div class="container-fluid bg-black py-5">
+  <main class="bg-black">
+    <div class="container-fluid py-5">
       <div class="container">
         <div class="row">
           <h3 class="text-white text-center pb-10">所有課程</h3>
@@ -136,6 +136,9 @@ export default {
 </script>
 
 <style>
+main {
+  min-height: calc(100vh - 168px);
+}
 .description {
   display: none;
 }

@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main class="bg-black">
     <div class="container-fluid bg-black py-5">
       <div class="row">
         <h3 class="text-white text-center pb-10">籃球課程Q&A與服務流程</h3>
@@ -31,3 +31,9 @@
     </div>
   </main>
 </template>
+
+<style>
+main {
+  min-height: calc(100vh - 168px);
+}
+</style>

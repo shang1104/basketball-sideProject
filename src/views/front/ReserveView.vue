@@ -1,6 +1,6 @@
 <template>
-  <main>
-    <div class="container-fluid bg-black py-5">
+  <main class="bg-black">
+    <div class="container-fluid py-5">
       <div class="container">
         <div class="row">
           <h3 class="text-white text-center pb-10">已預約課程</h3>
@@ -147,6 +147,9 @@ export default {
 </script>
 
 <style scoped>
+main {
+  min-height: calc(100vh - 168px);
+}
 .container-fluid {
   min-height: calc(100vh - 22vh);
 }
