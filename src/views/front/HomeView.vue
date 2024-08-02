@@ -9,7 +9,7 @@
               <p class="text-white fs-4 fst-normal">籃球家教</p>
               <div class="d-flex my-3 ">
                 <div class="col-9">
-                  <input type="text" class="searchInput input-search w-100 me-6 rounded-3" placeholder="請輸入分類課程">
+                  <input type="text" v-model.lazy.trim="search" class="searchInput input-search w-100 me-6 rounded-3" placeholder="請輸入分類課程">
                   <ul class="my-2 mx-1 flex-row searchList list-unstyled">
                     <li>
                       <router-link to="/reserve" class="me-2 px-1 text-primary bg-white border border-1 rounded-1 text-decoration-none">預約上課</router-link>
@@ -24,7 +24,7 @@
                 </div>
                 <div class="col-3 ms-6">
                   <span>
-                    <a class="border border-1 fs-5 borer-white text-decoration-none rounded-circle text-white material-symbols-outlined" href="#">search</a>
+                    <button type="button" class="search bg-transparent text-white border border-1 fs-5 borer-white text-decoration-none rounded-circle material-symbols-outlined" @click="serachList()">search</button>
                   </span>
                 </div>
               </div>
@@ -267,15 +267,35 @@
   </main>
 </template>
 <script>
+import { RouterLink } from "vue-router";
+import Swal from 'sweetalert2'
+
 export default {
   data() {
     return {
+      search: '',
     }
-  }
-
+  },
+  components: {
+    RouterLink
+  },
+  methods: {
+    serachList() {
+      if (this.search == '') {
+        Swal.fire(("請輸入文字"));
+      } else {
+        this.$router.push({ path: 'products', query: { keyword: this.search } })
+      }
+    },
+  },
 }
+
+
 </script>
 <style scoped>
+.search {
+  aspect-ratio: 1 / 1; /* 圖型1:1 */
+}
 .searchList {
   display: flex;
   opacity: 0;
