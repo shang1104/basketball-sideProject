@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid bg-black">
+  <section class="container-fluid bg-black">
     <div class="container">
       <div class="row">
         <div class="col-12 m-2">
@@ -48,7 +48,7 @@
       </div>
 
     </div>
-  </div>
+  </section>
 </template>
 <script>
 const { VITE_APP_URL, VITE_APP_PATH } = import.meta.env;
@@ -82,3 +82,9 @@ export default {
   }
 }
 </script>
+
+<style>
+section {
+  min-height: calc(100vh - 168px);
+}
+</style>
