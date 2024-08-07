@@ -14,8 +14,3 @@ export default {
   props: ['state'],
 }
 </script>
-
-
-        <!-- <div class="badge rounded-pill fs-7 bg-white text-primary mb-2 mb-md-0">1.填寫資訊</div>
-        <div class="badge rounded-pill fs-7 bg-secondary text-primary mb-2 mb-md-0">2.確認付款</div>
-        <div class="badge rounded-pill fs-7 bg-secondary text-primary mb-2 mb-md-0">3.付款完成</div> -->
