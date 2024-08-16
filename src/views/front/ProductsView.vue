@@ -5,11 +5,14 @@
         <div class="row">
           <h3 class="text-white text-center pb-10">所有課程</h3>
           <p class="text-white">分類 :
-            <select class="bg-primary text-white" v-model="select" @change="filterProduct" name="" id="">
+            <select class="bg-black text-white" v-model="select" @change="filterProduct" name="" id="">
               <option :value="show" v-for="show in searchShow" :key="`${show}+123`">{{ show }}</option>
             </select>
           </p>
-          <div class="col-12">
+          <div v-if="this.products == 0" class="text-center text-white mt-10">
+            <h3>查無商品</h3>
+          </div>
+          <div v-else class="col-12">
             <table class="table border-collapse">
               <thead class="text-white">
                 <tr class="text-center d-none d-md-table-row">
@@ -70,10 +73,8 @@ export default {
     return {
       products: {},
       productId: '',
-      searchWords: {},
       searchShow: ['全部', '投籃', '運球', '防守', '基本動作'],
-      select: '全部',
-      filterProducts: [],
+      select: '無',
     };
   },
   components: {
@@ -81,10 +82,6 @@ export default {
   },
   methods: {
     filterProduct() {
-      console.log(this.select);
-      this.getProducts()
-    },
-    getProducts() {
       const loader = this.$loading.show({
         canCancel: false,
       })
@@ -95,13 +92,87 @@ export default {
       this.$http
         .get(`${VITE_APP_URL}v2/api/${VITE_APP_PATH}/products?category=${category}`)
         .then((res) => {
-          console.log('產品料表', res)
+          // console.log('產品料表', res)
           this.products = res.data.products;
           loader.hide()
         })
-        .catch((error) => {
-          console.log(error);
-        });
+    },
+
+    keyword() {
+      const loader = this.$loading.show({
+        canCancel: false,
+      })
+      const keyword = this.$route.query.keyword;
+      this.$http
+        .get(`${VITE_APP_URL}v2/api/${VITE_APP_PATH}/products`)
+        .then(res => {
+          let finalArray = [];
+          console.log(res);
+          finalArray = res.data.products.filter(item =>
+            item.title.toLowerCase().includes(keyword.toLowerCase()),
+          );
+          if (this.products == 0) {
+            console.log('查不到東西');
+          } else if (!this.products == 0) {
+            console.log('查到東西');
+          }
+          this.products = finalArray;
+          loader.hide()
+        })
+    },
+
+    getProducts() {
+      const keyword = this.$route.query.keyword;
+      if (keyword) {
+        return this.keyword()
+      } else {
+        const loader = this.$loading.show({
+          canCancel: false,
+        })
+        this.$http
+          .get(`${VITE_APP_URL}v2/api/${VITE_APP_PATH}/products`)
+          .then(res => {
+            this.products = res.data.products;
+            loader.hide()
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+      }
+
+      //第二種寫法
+      // const loader = this.$loading.show({
+      //   canCancel: false,
+      // })
+      // let category = this.select
+      // let url = '';
+      // if (this.select == '無') {
+      //   url = `${VITE_APP_URL}v2/api/${VITE_APP_PATH}/products`
+      // } else {
+      //   if (category == '全部') {
+      //     category = ''
+      //   }
+      //   url = `${VITE_APP_URL}v2/api/${VITE_APP_PATH}/products?category=${category}`
+      // }
+      // // 有分類就不處理keyword
+      // this.$http
+      //   .get(url)
+      //   .then((res) => {
+      //     let finalArray = []
+      //     if (this.select == '無') {
+      //       const keyword = this.$route.query.keyword;
+      //       finalArray = res.data.products.filter(item =>
+      //         item.title.toLowerCase().includes(keyword.toLowerCase()),
+      //       );
+      //     } else {
+      //       finalArray = res.data.products
+      //     }
+      //     this.products = finalArray
+      //     loader.hide()
+      //   })
+      //   .catch((error) => {
+      //     console.log(error);
+      //   });
     },
     addToCart(id) {
       const data = {
@@ -115,7 +186,7 @@ export default {
             title: '成功加入課程!',
             showConfirmButton: false,
             icon: 'success',
-            timer: 1500
+            timer: 1500,
           })
         });
     },
@@ -123,7 +194,6 @@ export default {
       this.productId = id
       this.$http.get(`${VITE_APP_URL}v2/api/${VITE_APP_PATH}/product/${id}`)
         .then((res) => {
-          console.log(res);
           this.$router.push(`/product/${id}`)
         })
       // console.log('外層帶入 productId', id)
@@ -131,6 +201,7 @@ export default {
   },
   mounted() {
     this.getProducts();
+    console.log('keyword', this.$route.query.keyword);
   },
 };
 </script>
