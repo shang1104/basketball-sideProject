@@ -3,7 +3,7 @@
   <section>
     <StateView :state="2"></StateView>
   </section>
-  <section>
+  <main class="bg-black">
     <!-- 要把已預約的課程 顯示此頁 -->
     <div class="container-fluid bg-black py-5">
       <div class="container">
@@ -72,7 +72,7 @@
         </div>
       </div>
     </div>
-  </section>
+  </main>
 </template>
 
 <script>
@@ -116,11 +116,14 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .form-signin > .form-floating > label {
   padding: 0px;
   position: absolute;
   top: 0;
   left: 0px;
+}
+main {
+  min-height: calc(100vh - 335px);
 }
 </style>
