@@ -9,7 +9,7 @@
               <p class="text-white fs-4 fst-normal">籃球家教</p>
               <div class="d-flex my-3 ">
                 <div class="col-9">
-                  <input type="text" v-model.lazy.trim="search" class="searchInput input-search w-100 me-6 rounded-3" placeholder="請輸入分類課程">
+                  <input type="text" v-model.lazy.trim="search" class="searchInput input-search w-100 me-6 py-2 px-4 rounded-3" placeholder="請輸入分類課程">
                   <ul class="my-2 mx-1 flex-row searchList list-unstyled">
                     <li>
                       <router-link to="/reserve" class="me-2 px-1 text-primary bg-white border border-1 rounded-1 text-decoration-none">預約上課</router-link>
@@ -24,7 +24,7 @@
                 </div>
                 <div class="col-3 ms-6">
                   <span>
-                    <button type="button" class="search bg-transparent text-white border border-1 fs-5 borer-white text-decoration-none rounded-circle material-symbols-outlined" @click="serachList()">search</button>
+                    <button type="button" class="search bg-transparent text-white border border-1 fs-7 borer-white text-decoration-none rounded-circle material-symbols-outlined" @click="serachList()">search</button>
                   </span>
                 </div>
               </div>
